@@ -1,0 +1,1139 @@
+DEPRECATION WARNING: Passing #original_exception is deprecated and has no effect. Exceptions will automatically capture the original exception. (called from require at /home/daniel/git/rails_admin_serie/bin/rails:9)
+  [1m[35m (12.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (14.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20170127232051)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "kind" integer, "status" integer, "notes" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232051"]]
+  [1m[35m (6.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateClients (20170127232123)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "clients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "company_name" varchar, "document" varchar, "email" varchar, "phone" varchar, "user_id" integer, "notes" text, "status" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_clients_on_user_id" ON "clients" ("user_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232123"]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateAddresses (20170127232143)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "addresses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "country" varchar, "city" varchar, "state" varchar, "neighborhood" varchar, "street" varchar, "number" varchar, "client_id" integer, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_addresses_on_client_id" ON "addresses" ("client_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232143"]]
+  [1m[35m (8.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateProducts (20170127232233)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" text, "status" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232233"]]
+  [1m[35m (10.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateDiscounts (20170127232337)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "discounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" text, "value" integer, "kind" integer, "status" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232337"]]
+  [1m[35m (10.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateProductQuantities (20170127232445)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "product_quantities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "product_id" integer, "quantity" integer, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_product_quantities_on_product_id" ON "product_quantities" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_product_quantities_on_user_id" ON "product_quantities" ("user_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232445"]]
+  [1m[35m (7.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateSales (20170127232527)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "sales" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer, "sale_date" date, "user_id" integer, "discount_id" integer, "notes" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_sales_on_client_id" ON "sales" ("client_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_sales_on_user_id" ON "sales" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_sales_on_discount_id" ON "sales" ("discount_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232527"]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateComissions (20170127232635)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "comissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sale_id" integer, "value" decimal, "user_id" integer, "status" integer, "note" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_comissions_on_sale_id" ON "comissions" ("sale_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_comissions_on_user_id" ON "comissions" ("user_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232635"]]
+  [1m[35m (8.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddDeviseToUsers (20170204181922)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" varchar[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" datetime[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" datetime[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" datetime[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" datetime[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_ip" varchar[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_ip" varchar[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170204181922"]]
+  [1m[35m (11.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddSaleIdToProductQuantity (20170209192513)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "product_quantities" ADD "sale_id" integer[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170209192513"]]
+  [1m[35m (8.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddPriceToProduct (20170209192550)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "products" ADD "price" decimal[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170209192550"]]
+  [1m[35m (5.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddPhotoToProduct (20170209201512)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "products" ADD "photo" varchar[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170209201512"]]
+  [1m[35m (5.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", 2018-06-10 16:11:43 UTC], ["updated_at", 2018-06-10 16:11:43 UTC]]
+  [1m[35m (5.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_addresses_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_addresses_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_clients_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_clients_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comissions_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comissions_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_product_quantities_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_product_quantities_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_discount_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_discount_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:12:51 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+Completed 401 Unauthorized in 17ms (ActiveRecord: 1.3ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:12:51 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/shared/_links.html.erb (1.1ms)
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application (12.9ms)
+Completed 200 OK in 5657ms (Views: 5638.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:13:03 -0300
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"d1H+jJ4qeY5cqYuOSKx5mEaPukGtplQHo3pDovVR0Or0WQOPtRhme5TOI5oMuj0ka7Mog8bfivb4KoSuspt6qA==", "user"=>{"email"=>"manager@teste.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "manager@teste.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.2ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"d1H+jJ4qeY5cqYuOSKx5mEaPukGtplQHo3pDovVR0Or0WQOPtRhme5TOI5oMuj0ka7Mog8bfivb4KoSuspt6qA==", "user"=>{"email"=>"manager@teste.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/shared/_links.html.erb (0.6ms)
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 123ms (Views: 14.2ms | ActiveRecord: 0.0ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "salesman@teste.com"], ["LIMIT", 1]]
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "kind", "status", "created_at", "updated_at", "email", "encrypted_password") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "José"], ["kind", 0], ["status", 0], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC], ["email", "salesman@teste.com"], ["encrypted_password", "$2a$11$/WU1E2POUwsgg/0qyPAu3ONuhfwn/Yp1jYDyMeqAsAFXEDrWJ878S"]]
+  [1m[35m (11.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "salesman2@teste.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "kind", "status", "created_at", "updated_at", "email", "encrypted_password") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Manuel"], ["kind", 0], ["status", 0], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC], ["email", "salesman2@teste.com"], ["encrypted_password", "$2a$11$1iiMH4MLX7tnjf1b6kHlvuKJXumJbPFLAv0.zAEZiXwbUotncpTW6"]]
+  [1m[35m (5.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "manager@teste.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "kind", "status", "created_at", "updated_at", "email", "encrypted_password") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Marcos"], ["kind", 1], ["status", 0], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC], ["email", "manager@teste.com"], ["encrypted_password", "$2a$11$j2ukT/QIEVAaANXWIP7tc.9vnUTKUCeJ3HDTyhxCS3cCyGal4e6s6"]]
+  [1m[35m (8.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "status", "created_at", "updated_at", "price") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "Smartphone"], ["description", "Um smartphone novo ..."], ["status", 0], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC], ["price", #<BigDecimal:721cf30,'0.1E2',9(27)>]]
+  [1m[35m (5.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "status", "created_at", "updated_at", "price") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "Tablet"], ["description", "Um tablet novo ..."], ["status", 0], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC], ["price", #<BigDecimal:71d2570,'0.2E2',9(27)>]]
+  [1m[35m (6.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "discounts" ("name", "description", "value", "kind", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Desconto carnaval"], ["description", "Aplique esse desconto no carnaval"], ["value", 10], ["kind", 0], ["status", 0], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC]]
+  [1m[35m (8.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "discounts" ("name", "description", "value", "kind", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Desconto carnaval dinheiro"], ["description", "Aplique esse desconto quando possível"], ["value", 10], ["kind", 1], ["status", 0], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC]]
+  [1m[35m (8.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "clients" ("name", "company_name", "document", "email", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Paulo"], ["company_name", "Google"], ["document", "1234"], ["email", "paulo@google.com"], ["user_id", 1], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC]]
+  [1m[35m (8.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "clients" ("name", "company_name", "document", "email", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Julia"], ["company_name", "Google"], ["document", "abcd"], ["email", "julia@google.com"], ["user_id", 1], ["created_at", 2018-06-10 16:13:20 UTC], ["updated_at", 2018-06-10 16:13:20 UTC]]
+  [1m[35m (5.2ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:13:37 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/shared/_links.html.erb (1.8ms)
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application (30.2ms)
+Completed 200 OK in 352ms (Views: 331.9ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:13:44 -0300
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+1Zt6yl98RE+PKvryLaO2zsrnOxk+TF64yLFYekLqjh4XpDoAk/u5PZbA/+MoMpnFhcOLg+A74u4cgJtrsEAeg==", "user"=>{"email"=>"manager@teste.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "manager@teste.com"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", 2018-06-10 16:13:44 UTC], ["last_sign_in_at", 2018-06-10 16:13:44 UTC], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", 2018-06-10 16:13:44 UTC], ["id", 3]]
+  [1m[35m (11.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 145ms (ActiveRecord: 12.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:13:44 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "sales"[0m
+  [1m[36mSale Load (0.3ms)[0m  [1m[34mSELECT  "sales".* FROM "sales" ORDER BY "sales"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "comissions"[0m
+  [1m[36mComission Load (0.1ms)[0m  [1m[34mSELECT  "comissions".* FROM "comissions" ORDER BY "comissions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" ORDER BY "clients"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "discounts"[0m
+  [1m[36mDiscount Load (0.1ms)[0m  [1m[34mSELECT  "discounts".* FROM "discounts" ORDER BY "discounts"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY "products"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  Rendering /var/lib/gems/2.3.0/gems/rails_admin-1.1.1/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application
+  Rendered /var/lib/gems/2.3.0/gems/rails_admin-1.1.1/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application (21.5ms)
+  Rendered /var/lib/gems/2.3.0/gems/rails_admin-1.1.1/app/views/layouts/rails_admin/_secondary_navigation.html.haml (2.4ms)
+  Rendered /var/lib/gems/2.3.0/gems/rails_admin-1.1.1/app/views/layouts/rails_admin/_navigation.html.haml (4.8ms)
+  Rendered /var/lib/gems/2.3.0/gems/rails_admin-1.1.1/app/views/layouts/rails_admin/_sidebar_navigation.html.haml (3.4ms)
+  Rendering /var/lib/gems/2.3.0/gems/rails_admin-1.1.1/app/views/layouts/rails_admin/pjax.html.haml
+  Rendered /var/lib/gems/2.3.0/gems/rails_admin-1.1.1/app/views/layouts/rails_admin/pjax.html.haml (2.8ms)
+Completed 200 OK in 395ms (Views: 250.4ms | ActiveRecord: 4.2ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", :environment]]
+  [1m[35m (7.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20170127232051)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "kind" integer, "status" integer, "notes" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232051"]]
+  [1m[35m (11.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateClients (20170127232123)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "clients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "company_name" varchar, "document" varchar, "email" varchar, "phone" varchar, "user_id" integer, "notes" text, "status" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_clients_on_user_id" ON "clients" ("user_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232123"]]
+  [1m[35m (8.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateAddresses (20170127232143)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "addresses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "country" varchar, "city" varchar, "state" varchar, "neighborhood" varchar, "street" varchar, "number" varchar, "client_id" integer, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_addresses_on_client_id" ON "addresses" ("client_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232143"]]
+  [1m[35m (6.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateProducts (20170127232233)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" text, "status" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232233"]]
+  [1m[35m (7.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateDiscounts (20170127232337)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "discounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" text, "value" integer, "kind" integer, "status" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232337"]]
+  [1m[35m (11.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateProductQuantities (20170127232445)
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "product_quantities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "product_id" integer, "quantity" integer, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_product_quantities_on_product_id" ON "product_quantities" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_product_quantities_on_user_id" ON "product_quantities" ("user_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232445"]]
+  [1m[35m (11.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateSales (20170127232527)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "sales" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "client_id" integer, "sale_date" date, "user_id" integer, "discount_id" integer, "notes" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX "index_sales_on_client_id" ON "sales" ("client_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_sales_on_user_id" ON "sales" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_sales_on_discount_id" ON "sales" ("discount_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232527"]]
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateComissions (20170127232635)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "comissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sale_id" integer, "value" decimal, "user_id" integer, "status" integer, "note" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_comissions_on_sale_id" ON "comissions" ("sale_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_comissions_on_user_id" ON "comissions" ("user_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170127232635"]]
+  [1m[35m (7.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddDeviseToUsers (20170204181922)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" varchar[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" datetime[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" datetime[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" datetime[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" datetime[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_ip" varchar[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_ip" varchar[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170204181922"]]
+  [1m[35m (7.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddSaleIdToProductQuantity (20170209192513)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "product_quantities" ADD "sale_id" integer[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170209192513"]]
+  [1m[35m (9.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddPriceToProduct (20170209192550)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "products" ADD "price" decimal[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170209192550"]]
+  [1m[35m (8.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddPhotoToProduct (20170209201512)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "products" ADD "photo" varchar[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170209201512"]]
+  [1m[35m (8.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC]]
+  [1m[35m (5.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_addresses_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_addresses_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_clients_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_clients_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comissions_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comissions_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comissions_on_sale_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_product_quantities_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_product_quantities_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_product_quantities_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_discount_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_discount_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sales_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "salesman@teste.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "kind", "status", "created_at", "updated_at", "email", "encrypted_password") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "José"], ["kind", 0], ["status", 0], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC], ["email", "salesman@teste.com"], ["encrypted_password", "$2a$11$uglO6RDZhdjE8zH2XoxIEOldTkOrtmN/taaOvF1nj6XeMAo2N/Df2"]]
+  [1m[35m (7.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "salesman2@teste.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "kind", "status", "created_at", "updated_at", "email", "encrypted_password") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Manuel"], ["kind", 0], ["status", 0], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC], ["email", "salesman2@teste.com"], ["encrypted_password", "$2a$11$Gtc5vwjwQRgsseCc.2RrxeEBwIomEepUnmpTcKzJNQ9RE0YSfT.m2"]]
+  [1m[35m (5.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "manager@teste.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "kind", "status", "created_at", "updated_at", "email", "encrypted_password") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Marcos"], ["kind", 1], ["status", 0], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC], ["email", "manager@teste.com"], ["encrypted_password", "$2a$11$DWB9Nu.8HwJsHXf28IoErOIeG2Z4mmerxcxUqYSMRaOVshDJPdYGW"]]
+  [1m[35m (9.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "status", "created_at", "updated_at", "price") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "Smartphone"], ["description", "Um smartphone novo ..."], ["status", 0], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC], ["price", #<BigDecimal:71b8288,'0.1E2',9(27)>]]
+  [1m[35m (8.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "status", "created_at", "updated_at", "price") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "Tablet"], ["description", "Um tablet novo ..."], ["status", 0], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC], ["price", #<BigDecimal:718bcd8,'0.2E2',9(27)>]]
+  [1m[35m (9.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "discounts" ("name", "description", "value", "kind", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Desconto carnaval"], ["description", "Aplique esse desconto no carnaval"], ["value", 10], ["kind", 0], ["status", 0], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC]]
+  [1m[35m (5.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "discounts" ("name", "description", "value", "kind", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Desconto carnaval dinheiro"], ["description", "Aplique esse desconto quando possível"], ["value", 10], ["kind", 1], ["status", 0], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC]]
+  [1m[35m (4.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "clients" ("name", "company_name", "document", "email", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Paulo"], ["company_name", "Google"], ["document", "1234"], ["email", "paulo@google.com"], ["user_id", 1], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC]]
+  [1m[35m (4.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "clients" ("name", "company_name", "document", "email", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Julia"], ["company_name", "Google"], ["document", "abcd"], ["email", "julia@google.com"], ["user_id", 1], ["created_at", 2018-06-10 16:21:57 UTC], ["updated_at", 2018-06-10 16:21:57 UTC]]
+  [1m[35m (10.6ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:22:08 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+Completed 401 Unauthorized in 33ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:22:08 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/shared/_links.html.erb (1.1ms)
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application (13.2ms)
+Completed 200 OK in 7035ms (Views: 7032.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:22:21 -0300
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"YGfVf4JpHfdlnthdEmNCFq44EhNeTjoLF4K8SDwlbdgJTco1doB+mcU79aZC2SITeKFEb2F8+Pv3ZXdNglfy/w==", "user"=>{"email"=>"manager@teste.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "manager@teste.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", 2018-06-10 16:22:21 UTC], ["last_sign_in_at", 2018-06-10 16:22:21 UTC], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", 2018-06-10 16:22:21 UTC], ["id", 3]]
+  [1m[35m (7.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 124ms (ActiveRecord: 9.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:22:21 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "sales"[0m
+  [1m[36mSale Load (0.1ms)[0m  [1m[34mSELECT  "sales".* FROM "sales" ORDER BY "sales"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "comissions"[0m
+  [1m[36mComission Load (0.1ms)[0m  [1m[34mSELECT  "comissions".* FROM "comissions" ORDER BY "comissions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" ORDER BY "clients"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "discounts"[0m
+  [1m[36mDiscount Load (0.1ms)[0m  [1m[34mSELECT  "discounts".* FROM "discounts" ORDER BY "discounts"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY "products"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application (28.7ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_secondary_navigation.html.haml (3.6ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_navigation.html.haml (7.9ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_sidebar_navigation.html.haml (4.5ms)
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml (3.0ms)
+Completed 200 OK in 739ms (Views: 406.8ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:23:08 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "sales"[0m
+  [1m[36mSale Load (0.3ms)[0m  [1m[34mSELECT  "sales".* FROM "sales" ORDER BY "sales"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "comissions"[0m
+  [1m[36mComission Load (0.3ms)[0m  [1m[34mSELECT  "comissions".* FROM "comissions" ORDER BY "comissions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mClient Load (0.3ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" ORDER BY "clients"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "discounts"[0m
+  [1m[36mDiscount Load (0.6ms)[0m  [1m[34mSELECT  "discounts".* FROM "discounts" ORDER BY "discounts"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY "products"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application (31.0ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_secondary_navigation.html.haml (3.2ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_navigation.html.haml (8.5ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_sidebar_navigation.html.haml (7.7ms)
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml (4.6ms)
+Completed 200 OK in 217ms (Views: 165.3ms | ActiveRecord: 5.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:23:13 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (2.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "sales"[0m
+  [1m[36mSale Load (0.3ms)[0m  [1m[34mSELECT  "sales".* FROM "sales" ORDER BY "sales"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "comissions"[0m
+  [1m[36mComission Load (0.3ms)[0m  [1m[34mSELECT  "comissions".* FROM "comissions" ORDER BY "comissions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mClient Load (0.4ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" ORDER BY "clients"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "discounts"[0m
+  [1m[36mDiscount Load (0.2ms)[0m  [1m[34mSELECT  "discounts".* FROM "discounts" ORDER BY "discounts"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY "products"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application (31.8ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_secondary_navigation.html.haml (3.1ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_navigation.html.haml (7.0ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_sidebar_navigation.html.haml (11.1ms)
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml (3.5ms)
+Completed 200 OK in 218ms (Views: 156.5ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/product?_pjax=%5Bdata-pjax-container%5D" for 127.0.0.1 at 2018-06-10 13:24:22 -0300
+Processing by RailsAdmin::MainController#index as HTML
+  Parameters: {"_pjax"=>"[data-pjax-container]", "model_name"=>"product"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY products.id desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax (93.9ms)
+Completed 200 OK in 128ms (Views: 107.6ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/product?model_name=product&utf8=%E2%9C%93&f%5Bname%5D%5B78669%5D%5Bo%5D=_discard&f%5Bname%5D%5B78669%5D%5Bv%5D=tab&query=&_pjax=%5Bdata-pjax-container%5D" for 127.0.0.1 at 2018-06-10 13:24:33 -0300
+Processing by RailsAdmin::MainController#index as HTML
+  Parameters: {"model_name"=>"product", "utf8"=>"✓", "f"=>{"name"=>{"78669"=>{"o"=>"_discard", "v"=>"tab"}}}, "query"=>"", "_pjax"=>"[data-pjax-container]"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY products.id desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax (68.4ms)
+Completed 200 OK in 101ms (Views: 80.0ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/product?model_name=product&utf8=%E2%9C%93&query=tab&_pjax=%5Bdata-pjax-container%5D" for 127.0.0.1 at 2018-06-10 13:24:38 -0300
+Processing by RailsAdmin::MainController#index as HTML
+  Parameters: {"model_name"=>"product", "utf8"=>"✓", "query"=>"tab", "_pjax"=>"[data-pjax-container]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE ((LOWER(products.name) LIKE '%tab%') OR (LOWER(products.description) LIKE '%tab%')) ORDER BY products.id desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax (58.4ms)
+Completed 200 OK in 87ms (Views: 68.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/product?model_name=product&utf8=%E2%9C%93&query=nov&_pjax=%5Bdata-pjax-container%5D" for 127.0.0.1 at 2018-06-10 13:24:43 -0300
+Processing by RailsAdmin::MainController#index as HTML
+  Parameters: {"model_name"=>"product", "utf8"=>"✓", "query"=>"nov", "_pjax"=>"[data-pjax-container]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE ((LOWER(products.name) LIKE '%nov%') OR (LOWER(products.description) LIKE '%nov%')) ORDER BY products.id desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax (67.7ms)
+Completed 200 OK in 104ms (Views: 81.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/product/1?_pjax=%5Bdata-pjax-container%5D" for 127.0.0.1 at 2018-06-10 13:24:49 -0300
+Processing by RailsAdmin::MainController#show as HTML
+  Parameters: {"_pjax"=>"[data-pjax-container]", "model_name"=>"product", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/show.html.haml within layouts/rails_admin/pjax
+  [1m[36mProductQuantity Load (0.1ms)[0m  [1m[34mSELECT "product_quantities".* FROM "product_quantities" WHERE "product_quantities"."product_id" = ?[0m  [["product_id", 1]]
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/show.html.haml within layouts/rails_admin/pjax (26.0ms)
+Completed 200 OK in 56ms (Views: 42.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/product/1/edit?_pjax=%5Bdata-pjax-container%5D" for 127.0.0.1 at 2018-06-10 13:24:55 -0300
+Processing by RailsAdmin::MainController#edit as HTML
+  Parameters: {"_pjax"=>"[data-pjax-container]", "model_name"=>"product", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? ORDER BY "products"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/edit.html.haml within layouts/rails_admin/pjax
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/_form_field.html.haml (2.6ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/_form_text.html.haml (3.8ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/_form_enumeration.html.haml (4.3ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/_form_field.html.haml (0.2ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/_form_file_upload.html.haml (6.4ms)
+  [1m[36mProductQuantity Load (0.2ms)[0m  [1m[34mSELECT "product_quantities".* FROM "product_quantities" WHERE "product_quantities"."product_id" = ?[0m  [["product_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "product_quantities"[0m
+  [1m[36mProductQuantity Load (0.1ms)[0m  [1m[34mSELECT "product_quantities".* FROM "product_quantities" ORDER BY product_quantities.id desc[0m
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/_form_filtering_multiselect.html.haml (18.8ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/_submit_buttons.html.haml (10.8ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/edit.html.haml within layouts/rails_admin/pjax (71.8ms)
+Completed 200 OK in 106ms (Views: 88.8ms | ActiveRecord: 1.2ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2018-06-10 13:36:11 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"sSlN/MlUkZHOB8pA8ForXCmqdQcZ7fibvloFGR7rrXht+zPMVsKnJaaQVj1AF7N6iMFYPGDOracAFWSoptywiQ=="}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 45ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:36:11 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:36:11 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (9.1ms)
+Completed 500 Internal Server Error in 185ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'twitter/bootstrap/responsive' with type 'text/css'
+Checked in these paths: 
+  /home/daniel/git/rails_admin_serie/app/assets/config
+  /home/daniel/git/rails_admin_serie/app/assets/images
+  /home/daniel/git/rails_admin_serie/app/assets/javascripts
+  /home/daniel/git/rails_admin_serie/app/assets/stylesheets
+  /home/daniel/git/rails_admin_serie/vendor/assets/javascripts
+  /home/daniel/git/rails_admin_serie/vendor/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/images
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/jquery-rails-4.2.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/images
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/coffee-rails-4.2.1/lib/assets/javascripts
+  /var/lib/gems/2.3.0/gems/actioncable-5.0.1/lib/assets/compiled
+  /var/lib/gems/2.3.0/gems/turbolinks-source-5.0.0/lib/assets/javascripts):
+    4:     <title>Sales</title>
+    5:     <%= csrf_meta_tags %>
+    6: 
+    7:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    8:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    9:   </head>
+   10: 
+  
+app/assets/stylesheets/application.css:16
+app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb___1741033275739267182_40891220'
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (3.1ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (17.9ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:36:15 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (6.2ms)
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'twitter/bootstrap/responsive' with type 'text/css'
+Checked in these paths: 
+  /home/daniel/git/rails_admin_serie/app/assets/config
+  /home/daniel/git/rails_admin_serie/app/assets/images
+  /home/daniel/git/rails_admin_serie/app/assets/javascripts
+  /home/daniel/git/rails_admin_serie/app/assets/stylesheets
+  /home/daniel/git/rails_admin_serie/vendor/assets/javascripts
+  /home/daniel/git/rails_admin_serie/vendor/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/images
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/jquery-rails-4.2.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/images
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/coffee-rails-4.2.1/lib/assets/javascripts
+  /var/lib/gems/2.3.0/gems/actioncable-5.0.1/lib/assets/compiled
+  /var/lib/gems/2.3.0/gems/turbolinks-source-5.0.0/lib/assets/javascripts):
+    4:     <title>Sales</title>
+    5:     <%= csrf_meta_tags %>
+    6: 
+    7:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    8:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    9:   </head>
+   10: 
+  
+app/assets/stylesheets/application.css:16
+app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb___1741033275739267182_70159062619800'
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (3.2ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (19.7ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:37:36 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (25.7ms)
+Completed 500 Internal Server Error in 230ms (ActiveRecord: 0.5ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'twitter/bootstrap/responsive' with type 'text/css'
+Checked in these paths: 
+  /home/daniel/git/rails_admin_serie/app/assets/config
+  /home/daniel/git/rails_admin_serie/app/assets/images
+  /home/daniel/git/rails_admin_serie/app/assets/javascripts
+  /home/daniel/git/rails_admin_serie/app/assets/stylesheets
+  /home/daniel/git/rails_admin_serie/vendor/assets/javascripts
+  /home/daniel/git/rails_admin_serie/vendor/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/images
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/jquery-rails-4.2.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/images
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/coffee-rails-4.2.1/lib/assets/javascripts
+  /var/lib/gems/2.3.0/gems/actioncable-5.0.1/lib/assets/compiled
+  /var/lib/gems/2.3.0/gems/turbolinks-source-5.0.0/lib/assets/javascripts):
+    4:     <title>Sales</title>
+    5:     <%= csrf_meta_tags %>
+    6: 
+    7:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    8:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    9:   </head>
+   10: 
+  
+app/assets/stylesheets/application.css:16
+app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb___1210976768940129631_42897000'
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (3.1ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.4ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (17.7ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:39:21 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.6ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (26.7ms)
+Completed 500 Internal Server Error in 226ms (ActiveRecord: 1.1ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'twitter/bootstrap/responsive' with type 'text/css'
+Checked in these paths: 
+  /home/daniel/git/rails_admin_serie/app/assets/config
+  /home/daniel/git/rails_admin_serie/app/assets/images
+  /home/daniel/git/rails_admin_serie/app/assets/javascripts
+  /home/daniel/git/rails_admin_serie/app/assets/stylesheets
+  /home/daniel/git/rails_admin_serie/vendor/assets/javascripts
+  /home/daniel/git/rails_admin_serie/vendor/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/images
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/assets/stylesheets
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/javascripts
+  /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /var/lib/gems/2.3.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/jquery-rails-4.2.2/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /var/lib/gems/2.3.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/rails_admin_rollincode-1.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/images
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/javascripts
+  /var/lib/gems/2.3.0/gems/bootstrap-sass-rails-2.2.2.1/vendor/assets/stylesheets
+  /var/lib/gems/2.3.0/gems/coffee-rails-4.2.1/lib/assets/javascripts
+  /var/lib/gems/2.3.0/gems/actioncable-5.0.1/lib/assets/compiled
+  /var/lib/gems/2.3.0/gems/turbolinks-source-5.0.0/lib/assets/javascripts):
+    4:     <title>Sales</title>
+    5:     <%= csrf_meta_tags %>
+    6: 
+    7:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    8:     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    9:   </head>
+   10: 
+  
+app/assets/stylesheets/application.css:16
+app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb__3083823041732211876_51326260'
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (3.0ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
+  Rendering /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-5.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (17.8ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:42:55 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/shared/_links.html.erb (2.3ms)
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application (36.4ms)
+Completed 200 OK in 424ms (Views: 392.8ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:43:01 -0300
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"cP/jRy0QxAzSDPzx2rDvK7QfUmZNfl/m3yjqNAuTHKy0syCiSA3X33jkwRRlYxyJJuqXMxM/uEaIgRsibZbJGQ==", "user"=>{"email"=>"manager@teste.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "manager@teste.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", 2018-06-10 16:43:01 UTC], ["sign_in_count", 2], ["updated_at", 2018-06-10 16:43:01 UTC], ["id", 3]]
+  [1m[35m (8.3ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 152ms (ActiveRecord: 8.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:43:01 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "sales"[0m
+  [1m[36mSale Load (0.1ms)[0m  [1m[34mSELECT  "sales".* FROM "sales" ORDER BY "sales"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "comissions"[0m
+  [1m[36mComission Load (0.1ms)[0m  [1m[34mSELECT  "comissions".* FROM "comissions" ORDER BY "comissions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" ORDER BY "clients"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "discounts"[0m
+  [1m[36mDiscount Load (0.1ms)[0m  [1m[34mSELECT  "discounts".* FROM "discounts" ORDER BY "discounts"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY "products"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application (27.2ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_secondary_navigation.html.haml (2.9ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_navigation.html.haml (6.2ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_sidebar_navigation.html.haml (4.6ms)
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml (2.9ms)
+Completed 200 OK in 533ms (Views: 163.3ms | ActiveRecord: 3.5ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2018-06-10 13:43:07 -0300
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"L5Wx6xk9eMqeSXEQ6Qb4g3iPwO/PpbDtkH4Uj/bXeASzy2IwHUgz5+voE9NJDLRjc9jw/WHIvBKhtkwMHEHIdQ=="}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 11ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:43:07 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:43:07 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/shared/_links.html.erb (2.3ms)
+  Rendered /var/lib/gems/2.3.0/gems/devise-4.2.0/app/views/devise/sessions/new.html.erb within layouts/application (9.0ms)
+Completed 200 OK in 36ms (Views: 35.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2018-06-10 13:52:30 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rhehXoCri6jii40NAejs7jWigFl/exnYsr6KBFtGyffp8RMKwFZwP/exOpoe4ku0ZxkCXfPkPLTet9JaiHrZ0w==", "user"=>{"email"=>"manager@teste.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "manager@teste.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", 2018-06-10 16:52:30 UTC], ["last_sign_in_at", 2018-06-10 16:43:01 UTC], ["sign_in_count", 3], ["updated_at", 2018-06-10 16:52:30 UTC], ["id", 3]]
+  [1m[35m (8.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 180ms (ActiveRecord: 9.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-10 13:52:30 -0300
+Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "sales"[0m
+  [1m[36mSale Load (0.1ms)[0m  [1m[34mSELECT  "sales".* FROM "sales" ORDER BY "sales"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "comissions"[0m
+  [1m[36mComission Load (0.1ms)[0m  [1m[34mSELECT  "comissions".* FROM "comissions" ORDER BY "comissions"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "clients"[0m
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" ORDER BY "clients"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "discounts"[0m
+  [1m[36mDiscount Load (0.1ms)[0m  [1m[34mSELECT  "discounts".* FROM "discounts" ORDER BY "discounts"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY "products"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application (33.5ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_secondary_navigation.html.haml (5.0ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_navigation.html.haml (13.7ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_sidebar_navigation.html.haml (6.3ms)
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml (4.9ms)
+Completed 200 OK in 860ms (Views: 500.7ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/product?_pjax=%5Bdata-pjax-container%5D" for 127.0.0.1 at 2018-06-10 13:52:36 -0300
+Processing by RailsAdmin::MainController#index as HTML
+  Parameters: {"_pjax"=>"[data-pjax-container]", "model_name"=>"product"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY products.id desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/pjax (79.0ms)
+Completed 200 OK in 128ms (Views: 92.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/product" for 127.0.0.1 at 2018-06-10 14:04:18 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by RailsAdmin::MainController#index as HTML
+  Parameters: {"model_name"=>"product"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" ORDER BY products.id desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/rails_admin/main/index.html.haml within layouts/rails_admin/application (75.4ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_secondary_navigation.html.haml (10.5ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_navigation.html.haml (16.1ms)
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/_sidebar_navigation.html.haml (37.1ms)
+  Rendering /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml
+  Rendered /home/daniel/.bundler/ruby/2.3.0/rails_admin-9abc1be0c1fe/app/views/layouts/rails_admin/pjax.html.haml (12.5ms)
+Completed 200 OK in 934ms (Views: 566.0ms | ActiveRecord: 2.5ms)
+
+
